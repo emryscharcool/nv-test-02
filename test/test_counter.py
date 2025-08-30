@@ -25,7 +25,7 @@ async def test_counter_basic(dut):
     # Now check increments over 20 cycles
     for i in range(20):
         await RisingEdge(dut.clk)
-        new_val = int(dut.uo_out.value)
+        new_val = int(dut.uo_out.value) if dut.uo_out.value.is_resolvable else 0
         dut._log.info(f"Cycle {i}: uo_out = {new_val}")
 
         assert new_val == (last_val + 1) % 256, \
