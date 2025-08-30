@@ -17,7 +17,7 @@ async def test_counter_basic(dut):
     dut.uio_in.value = 0
     await ClockCycles(dut.clk, 2)
     dut.rst_n.value = 1
-    await RisingEdge(dut.clk)  # wait one edge after reset release
+    await ClockCycles(dut.clk, 2)  # wait one edge after reset release
 
     last_val = int(dut.uo_out.value)
     dut._log.info(f"After reset, uo_out = {last_val}")
